@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Gestión de Comentarios</title>
+    <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+    <div class="navbar">
+        <a href="#" onclick="mostrarSeccion('crear')">Crear Comentario</a>
+        <a href="#" onclick="mostrarSeccion('listar')">Lista de Comentarios</a>
+        <a href="#" onclick="mostrarSeccion('acciones')">Acciones</a>
+        <a href="#" onclick="mostrarSeccion('crearProductos')">Crear Productos</a>
+        <a href="#" onclick="mostrarSeccion('listaProductos')">Lista de Productos</a>
+        <a href="#" onclick="mostrarSeccion('accionesProductos')">Acciones</a>
+    </div>
+
+    <div id="crear" class="seccion">
+        <h2>Crear Comentario</h2>
+        <form id="formComentario">
+            <textarea id="texto" placeholder="Comentario"></textarea>
+            <input type="text" id="email" placeholder="Correo del usuario" />
+            <input type="number" id="calificacion" placeholder="Calificación (1-5)" />
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+
+    <div id="listar" class="seccion">
+        <h2>Lista de Comentarios</h2>
+        <li id="lista"></li>
+    </div>
+
+    <div id="acciones" class="seccion">
+        <h2>Buscar / Actualizar / Eliminar</h2>
+        <input type="text" id="idBuscar" placeholder="ID del comentario" />
+        <button onclick="buscarComentario()">Buscar</button>
+        <textarea id="textoAccion" placeholder="Comentario"></textarea>
+        <input type="text" id="emailAccion" placeholder="Correo del usuario" />
+        <input type="number" id="calificacionAccion" placeholder="Calificación (1-5)" />
+        <button onclick="actualizarComentario()">Actualizar</button>
+        <button onclick="eliminarComentario()">Eliminar</button>
+    </div>
+
+    <div id="crearProductos" class="seccion">
+        <h2>Crear Producto</h2>
+        <form id="formProducto">
+            <input type="text" id="nombreProducto" placeholder="Nombre del producto" />
+            <textarea id="descripcionProducto" placeholder="Descripción del producto"></textarea>
+            <input type="number" id="precioProducto" placeholder="Precio del producto" />
+            <input type="text" id="categoriaProducto" placeholder="Categoría del producto" />
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+
+    <div id="listaProductos" class="seccion">
+        <h2>Lista de Productos</h2>
+        <ul id="listaProductos"></ul>
+    </div>
+
+    <div id="accionesProductos" class="seccion">
+        <h2>Buscar / Actualizar / Eliminar</h2>
+        <input type="text" id="idBuscar" placeholder="ID del producto" />
+        <button onclick="buscarProducto()">Buscar</button>
+        <textarea id="descripcionAccion" placeholder="Descripción del producto"></textarea>
+        <input type="text" id="nombreAccion" placeholder="Nombre del producto" />
+        <input type="number" id="precioAccion" placeholder="Precio del producto" />
+        <input type="text" id="categoriaAccion" placeholder="Categoría del producto" />
+        <button onclick="actualizarProducto()">Actualizar</button>
+        <button onclick="eliminarProducto()">Eliminar</button>
+    </div>
+
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
