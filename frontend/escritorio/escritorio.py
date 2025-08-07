@@ -4,7 +4,7 @@ import requests
 import json
 
 # Cargar configuración desde config.json
-with open("modulos/comentarios/configuracion/config.json") as f:
+with open("modulos/solicitudes/configuracion/config.json") as f:
     config = json.load(f)
 
 API = config["api_base"]
@@ -16,42 +16,42 @@ def recargar_datos():
     try:
         r = requests.get(API + ENDPOINTS["read_all"])
         if r.status_code == 200:
-            for c in r.json():
+            for s in r.json():
                 tree.insert("", "end", values=(
-                    c["id"], c["usuario_email"], c["texto"], c["calificacion"], c.get("fecha", "")
+                    s["id"], s["usuario_email"], s["descripcion"], s["estado"], s.get("fecha_creacion", "")
                 ))
     except Exception as e:
         messagebox.showerror("Error", str(e))
 
-def crear_comentario():
-    dialogo_comentario("Crear nuevo comentario")
+def crear_solicitud():
+    dialogo_solicitud("Crear nueva solicitud")
 
-def editar_comentario():
+def editar_solicitud():
     seleccionado = tree.focus()
     if not seleccionado:
-        messagebox.showwarning("Seleccionar", "Seleccione un comentario.")
+        messagebox.showwarning("Seleccionar", "Seleccione una solicitud.")
         return
     valores = tree.item(seleccionado, "values")
-    dialogo_comentario("Editar comentario", valores)
+    dialogo_solicitud("Editar solicitud", valores)
 
-def eliminar_comentario():
+def eliminar_solicitud():
     seleccionado = tree.focus()
     if not seleccionado:
-        messagebox.showwarning("Seleccionar", "Seleccione un comentario.")
+        messagebox.showwarning("Seleccionar", "Seleccione una solicitud.")
         return
-    id_com = tree.item(seleccionado, "values")[0]
-    if messagebox.askyesno("Eliminar", "¿Seguro que desea eliminar este comentario?"):
+    id_sol = tree.item(seleccionado, "values")[0]
+    if messagebox.askyesno("Eliminar", "¿Seguro que desea eliminar esta solicitud?"):
         try:
-            r = requests.delete(API + ENDPOINTS["delete"].replace("{id}", str(id_com)))
+            r = requests.delete(API + ENDPOINTS["delete"].replace("{id}", str(id_sol)))
             if r.status_code == 200:
                 recargar_datos()
-                messagebox.showinfo("Éxito", "Comentario eliminado.")
+                messagebox.showinfo("Éxito", "Solicitud eliminada.")
             else:
                 messagebox.showerror("Error", r.text)
         except Exception as e:
             messagebox.showerror("Error", str(e))
 
-def dialogo_comentario(titulo, datos=None):
+def dialogo_solicitud(titulo, datos=None):
     ventana = tk.Toplevel(root)
     ventana.title(titulo)
 
@@ -59,29 +59,29 @@ def dialogo_comentario(titulo, datos=None):
     email = tk.Entry(ventana)
     email.grid(row=0, column=1)
 
-    tk.Label(ventana, text="Comentario:").grid(row=1, column=0)
-    texto = tk.Entry(ventana)
-    texto.grid(row=1, column=1)
+    tk.Label(ventana, text="Descripción:").grid(row=1, column=0)
+    descripcion = tk.Entry(ventana)
+    descripcion.grid(row=1, column=1)
 
-    tk.Label(ventana, text="Calificación:").grid(row=2, column=0)
-    calificacion = tk.Entry(ventana)
-    calificacion.grid(row=2, column=1)
+    tk.Label(ventana, text="Estado:").grid(row=2, column=0)
+    estado = tk.Entry(ventana)
+    estado.grid(row=2, column=1)
 
     if datos:
-        id_com, email_val, texto_val, calif_val, _ = datos
+        id_sol, email_val, desc_val, estado_val, _ = datos
         email.insert(0, email_val)
-        texto.insert(0, texto_val)
-        calificacion.insert(0, calif_val)
+        descripcion.insert(0, desc_val)
+        estado.insert(0, estado_val)
 
     def guardar():
         payload = {
             "usuario_email": email.get(),
-            "texto": texto.get(),
-            "calificacion": calificacion.get()
+            "descripcion": descripcion.get(),
+            "estado": estado.get()
         }
         try:
             if datos:
-                r = requests.put(API + ENDPOINTS["update"].replace("{id}", str(id_com)), json=payload)
+                r = requests.put(API + ENDPOINTS["update"].replace("{id}", str(id_sol)), json=payload)
             else:
                 r = requests.post(API + ENDPOINTS["create"], json=payload)
             if r.status_code in [200, 201]:
@@ -97,10 +97,10 @@ def dialogo_comentario(titulo, datos=None):
 
 # Ventana principal
 root = tk.Tk()
-root.title("Gestión de Comentarios")
+root.title("Gestión de Solicitudes")
 
 # Tabla
-cols = ("ID", "Email", "Comentario", "Calificación", "Fecha")
+cols = ("ID", "Email", "Descripción", "Estado", "Fecha de Creación")
 tree = ttk.Treeview(root, columns=cols, show="headings")
 for col in cols:
     tree.heading(col, text=col)
@@ -111,9 +111,9 @@ tree.pack(fill="both", expand=True, padx=10, pady=10)
 botonera = tk.Frame(root)
 botonera.pack(pady=10)
 
-tk.Button(botonera, text="Nuevo", command=crear_comentario).pack(side="left", padx=5)
-tk.Button(botonera, text="Editar", command=editar_comentario).pack(side="left", padx=5)
-tk.Button(botonera, text="Eliminar", command=eliminar_comentario).pack(side="left", padx=5)
+tk.Button(botonera, text="Nueva", command=crear_solicitud).pack(side="left", padx=5)
+tk.Button(botonera, text="Editar", command=editar_solicitud).pack(side="left", padx=5)
+tk.Button(botonera, text="Eliminar", command=eliminar_solicitud).pack(side="left", padx=5)
 tk.Button(botonera, text="Recargar", command=recargar_datos).pack(side="left", padx=5)
 
 recargar_datos()
