@@ -52,3 +52,12 @@ CREATE TABLE IF NOT EXISTS validaciones_rrhh (
     observaciones TEXT,
     fecha_validacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS reportes (
+    rep_id SERIAL PRIMARY KEY,
+    emp_id INT REFERENCES empleados(emp_id),
+    rep_estado_id INT REFERENCES estados(rep_estado_id) NOT NULL,
+    rep_fecha_inicio DATE NOT NULL,
+    rep_fecha_fin DATE NOT NULL,
+    rep_fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
