@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS empleados (
     emp_area VARCHAR(255),
     emp_fecha_ingreso DATE NOT NULL,
     emp_dias_disponibles INT,
-    jefe_id INT REFERENCES jefes(jefe_id),
+    jefe_id INT REFERENCES jefes(jefe_id)
 );
 
 CREATE TABLE IF NOT EXISTS jefes (
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS jefes (
 CREATE TABLE IF NOT EXISTS solicitudes (
     sol_id SERIAL PRIMARY KEY,
     emp_id INT REFERENCES empleados(emp_id),
-    jefe_id INT REFERENCES empleados(jefe_id)
+    jefe_id INT REFERENCES empleados(jefe_id),
     sol_fecha_inicio DATE NOT NULL,
     sol_fecha_fin DATE NOT NULL,
     sol_motivo VARCHAR(255) NOT NULL,

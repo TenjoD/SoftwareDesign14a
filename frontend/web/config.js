@@ -6,10 +6,10 @@ const ENDPOINTS = {
     update: "/comentarios/{id}",
     delete: "/comentarios/{id}",
 
-    create_producto: "/productos",
-    read_all_productos: "/productos",
-    read_one_producto: "/productos/{id}",
-    update_producto: "/productos/{id}",
-    delete_producto: "/productos/{id}"
+    create_solicitud: "/solicitudes",
+    read_all_solicitudes: "/solicitudes",
+    read_one_solicitud: "/solicitudes/{id}",
+    update_solicitud: "/solicitudes/{id}",
+    delete_solicitud: "/solicitudes/{id}"
 
 };
