@@ -24,25 +24,36 @@ def crear_solicitud():
     motivo = input("Motivo de la solicitud: ")
     estado = input("Estado inicial (pendiente/aprobada/rechazada): ")
     
-    r = requests.post(f"{API}{ENDPOINTS['create']}", json={
+    r = requests.post(f"{API}{ENDPOINTS['create_solicitud']}", json={
         "empleado_id": int(empleado_id),
         "fecha_inicio": fecha_inicio,
         "fecha_fin": fecha_fin,
         "motivo": motivo,
         "estado": estado
     })
-    print(r.json())
+
+    try:
+        print(r.json())
+    except Exception:
+        print("Error al interpretar la respuesta. Código:", r.status_code)
+        print("Respuesta:", r.text)
 
 def listar_solicitudes():
-    r = requests.get(f"{API}{ENDPOINTS['read_all']}")
-    for s in r.json():
-        print(s)
+    r = requests.get(f"{API}{ENDPOINTS['read_all_solicitud']}")
+    try:
+        for s in r.json():
+            print(s)
+    except Exception:
+        print("Error al obtener solicitudes:", r.status_code, r.text)
 
 def obtener_solicitud():
     id = input("ID de la solicitud: ")
-    url = ENDPOINTS["read_one"].replace("{id}", id)
+    url = ENDPOINTS["read_one_solicitud"].replace("{id}", id)
     r = requests.get(f"{API}{url}")
-    print(r.json() if r.status_code == 200 else "Solicitud no encontrada.")
+    try:
+        print(r.json())
+    except Exception:
+        print("Solicitud no encontrada o error:", r.status_code, r.text)
 
 def actualizar_solicitud():
     id = input("ID de la solicitud a actualizar: ")
@@ -52,7 +63,7 @@ def actualizar_solicitud():
     motivo = input("Nuevo motivo: ")
     estado = input("Nuevo estado (pendiente/aprobada/rechazada): ")
     
-    url = ENDPOINTS["update"].replace("{id}", id)
+    url = ENDPOINTS["update_solicitud"].replace("{id}", id)
     r = requests.put(f"{API}{url}", json={
         "empleado_id": int(empleado_id),
         "fecha_inicio": fecha_inicio,
@@ -60,13 +71,20 @@ def actualizar_solicitud():
         "motivo": motivo,
         "estado": estado
     })
-    print(r.json())
+
+    try:
+        print(r.json())
+    except Exception:
+        print("Error al actualizar:", r.status_code, r.text)
 
 def eliminar_solicitud():
     id = input("ID de la solicitud a eliminar: ")
-    url = ENDPOINTS["delete"].replace("{id}", id)
+    url = ENDPOINTS["delete_solicitud"].replace("{id}", id)
     r = requests.delete(f"{API}{url}")
-    print(r.json())
+    try:
+        print(r.json())
+    except Exception:
+        print("Error al eliminar:", r.status_code, r.text)
 
 if __name__ == "__main__":
     while True:
@@ -86,5 +104,3 @@ if __name__ == "__main__":
             break
         else:
             print("Opción inválida.")
-
-

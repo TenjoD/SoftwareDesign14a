@@ -15,7 +15,7 @@ Content-Type: application/json
 GET http://localhost:8000/solicitudes/
 
 ### Obtener una solicitud por ID
-GET http://localhost:8000/solicitudes/1
+GET http://localhost:8000/solicitudes/3
 
 ### Actualizar una solicitud existente
 PUT http://localhost:8000/solicitudes/1

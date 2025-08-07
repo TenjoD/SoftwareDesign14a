@@ -1,11 +1,11 @@
 async function listarSolicitudes() {
-    const res = await fetch("http://localhost:8000/comentarios/");
+    const res = await fetch("http://localhost:8000/solicitudes/");
     const data = await res.json();
     const lista = document.getElementById("listaSolicitudes");
     lista.innerHTML = "";
     data.forEach(s => {
         const item = document.createElement("li");
-        item.textContent = `ID: ${s.id} | Empleado: ${s.emp_id} | Jefe: ${s.jefe_id} | Motivo: ${s.sol_motivo} | ${s.sol_fecha_inicio} a ${s.sol_fecha_fin}`;
+        item.textContent = `ID: ${s.sol_id} | Empleado: ${s.emp_id} | Jefe: ${s.jefe_id} | Motivo: ${s.sol_motivo} | ${s.sol_fecha_inicio} a ${s.sol_fecha_fin}`;
         lista.appendChild(item);
     });
 }
@@ -14,6 +14,7 @@ async function listarSolicitudes() {
 document.getElementById("formSolicitud").addEventListener("submit", async function(e) {
     e.preventDefault();
     const body = {
+        sol_id: parseInt(document.getElementById("sol_id").value),
         emp_id: parseInt(document.getElementById("emp_id").value),
         jefe_id: parseInt(document.getElementById("jefe_id").value),
         sol_fecha_inicio: document.getElementById("sol_fecha_inicio").value,
@@ -32,7 +33,7 @@ document.getElementById("formSolicitud").addEventListener("submit", async functi
 
 async function buscarSolicitud() {
     const id = document.getElementById("sol_id_buscar").value;
-    const res = await fetch(API_BASE + ENDPOINTS.read_one.replace("{id}", id));
+    const res = await fetch(API_BASE + ENDPOINTS.read_one.replace("{sol_id}", id));
     if (res.ok) {
         const data = await res.json();
         document.getElementById("emp_idAccion").value = data.emp_id;
@@ -56,7 +57,7 @@ async function actualizarSolicitud() {
         sol_fecha_fin: document.getElementById("sol_fecha_finAccion").value,
         sol_motivo: document.getElementById("sol_motivoAccion").value
     };
-    const res = await fetch(API_BASE + ENDPOINTS.update.replace("{id}", id), {
+    const res = await fetch(API_BASE + ENDPOINTS.update.replace("{sol_id}", id), {
         method: "PUT",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(body)
@@ -69,7 +70,7 @@ async function actualizarSolicitud() {
 
 async function eliminarSolicitud() {
     const id = document.getElementById("sol_id_buscar").value;
-    const res = await fetch(API_BASE + ENDPOINTS.delete.replace("{id}", id), { method: "DELETE" });
+    const res = await fetch(API_BASE + ENDPOINTS.delete.replace("{sol_id}", id), { method: "DELETE" });
     const result = await res.json();
     alert(result.mensaje || "Solicitud eliminada.");
     listarSolicitudes();
