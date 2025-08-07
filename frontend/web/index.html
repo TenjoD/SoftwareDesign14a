@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Gestión de Solicitudes</title>
+    <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+       <div class="navbar">
+        <a href="#" onclick="mostrarSeccion('crearSolicitud')">Crear Solicitud</a>
+        <a href="#" onclick="mostrarSeccion('listarSolicitudes')">Lista de Solicitudes</a>
+        <a href="#" onclick="mostrarSeccion('accionesSolicitud')">Acciones Solicitudes</a>
+        <a href="#" onclick="mostrarSeccion('crearReporte')">Crear Reporte</a>
+        <a href="#" onclick="mostrarSeccion('listarReportes')">Lista de Reportes</a>
+        <a href="#" onclick="mostrarSeccion('accionesReportes')">Acciones Reportes</a>
+    </div>
+    
+    
+    <div id="crearSolicitud" class="seccion" style="display:none;">
+        <h2>Crear Solicitud de Vacaciones</h2>
+        <form id="formSolicitud">
+            <input type="number" id="emp_id" placeholder="ID del Empleado" required />
+            <input type="number" id="jefe_id" placeholder="ID del Jefe Inmediato" required />
+            <input type="date" id="sol_fecha_inicio" placeholder="Fecha de inicio" required />
+            <input type="date" id="sol_fecha_fin" placeholder="Fecha de fin" required />
+            <input type="text" id="sol_motivo" placeholder="Motivo de la solicitud" required />
+            <button type="submit">Guardar Solicitud</button>
+        </form>
+    </div>
+    
+    
+    <div id="listarSolicitudes" class="seccion" style="display:none;">
+        <h2>Lista de Solicitudes</h2>
+        <ul id="listaSolicitudes"></ul>
+    </div>
+    
+    
+    <div id="accionesSolicitud" class="seccion" style="display:none;">
+        <h2>Buscar / Actualizar / Eliminar Solicitud</h2>
+        <input type="number" id="sol_id_buscar" placeholder="ID de la Solicitud" />
+        <button onclick="buscarSolicitud()">Buscar</button>
+    
+        <input type="number" id="emp_idAccion" placeholder="ID del Empleado" />
+        <input type="number" id="jefe_idAccion" placeholder="ID del Jefe Inmediato" />
+        <input type="date" id="sol_fecha_inicioAccion" placeholder="Fecha de inicio" />
+        <input type="date" id="sol_fecha_finAccion" placeholder="Fecha de fin" />
+        <input type="text" id="sol_motivoAccion" placeholder="Motivo" />
+    
+        <button onclick="actualizarSolicitud()">Actualizar</button>
+        <button onclick="eliminarSolicitud()">Eliminar</button>
+    </div>
+
+
+    // Reportes Section
+    <div id="crearReporte" class="seccion" style="display:none;">
+        <h2>Crear Reporte</h2>
+        <form id="formReporte">
+            <input type="number" id="rep_estado_solicitud_id" placeholder="Estado Solicitud" required />
+            <input type="number" id="rep_estado_jefe_id" placeholder="Estado Jefe" required />
+            <input type="number" id="rep_estado_rrhh_id" placeholder="Estado RRHH" required />
+            <input type="date" id="rep_fecha_inicio" placeholder="Fecha de inicio" required />
+            <input type="date" id="rep_fecha_fin" placeholder="Fecha de fin" required />
+            <input type="datetime-local" id="rep_fecha_creacion" placeholder="Fecha de creación" required />
+            <button type="submit">Guardar Reporte</button>
+        </form>
+    </div>
+
+
+    <div id="listarReportes" class="seccion" style="display:none;">
+        <h2>Lista de Reportes</h2>
+        <ul id="listaReportes"></ul>
+    </div>
+
+
+    <div id="accionesReportes" class="seccion" style="display:none;">
+        <h2>Buscar / Actualizar / Eliminar Reporte</h2>
+        <input type="number" id="rep_id_buscar" placeholder="ID del Reporte" />
+        <button onclick="buscarReporte()">Buscar</button>
+
+        <input type="number" id="rep_estado_solicitud_idAccion" placeholder="Estado Solicitud" />
+        <input type="number" id="rep_estado_jefe_idAccion" placeholder="Estado Jefe" />
+        <input type="number" id="rep_estado_rrhh_idAccion" placeholder="Estado RRHH" />
+        <input type="date" id="rep_fecha_inicioAccion" placeholder="Fecha de inicio" />
+        <input type="date" id="rep_fecha_finAccion" placeholder="Fecha de fin" />
+        <input type="datetime-local" id="rep_fecha_creacionAccion" placeholder="Fecha de creación" />
+
+        <button onclick="actualizarReporte()">Actualizar</button>
+        <button onclick="eliminarReporte()">Eliminar</button>
+    </div>
+
+        <h2>Lista de Reportes</h2>
+        <ul id="listarReportes"></ul>
+    </div>
+
+
+    <div id="accionesReportes" class="seccion" style="display:none;">
+        <h2>Buscar / Actualizar / Eliminar Reporte</h2>
+        <input type="number" id="rep_id_buscar" placeholder="ID del Reporte" />
+        <button onclick="buscarReporte()">Buscar</button>
+
+        <input type="number" id="emp_idAccion" placeholder="ID del Empleado" />
+        <input type="number" id="rep_estado_solicitud_idAccion" placeholder="Estado Solicitud" />
+        <input type="number" id="rep_estado_jefe_idAccion" placeholder="Estado Jefe" />
+        <input type="number" id="rep_estado_rrhh_idAccion" placeholder="Estado RRHH" />
+        <input type="date" id="rep_fecha_inicioAccion" placeholder="Fecha de inicio" />
+        <input type="date" id="rep_fecha_finAccion" placeholder="Fecha de fin" />
+        <input type="datetime-local" id="rep_fecha_creacionAccion" placeholder="Fecha de creación" />
+
+        <button onclick="actualizarReporte()">Actualizar</button>
+        <button onclick="eliminarReporte()">Eliminar</button>
+    </div>
+    
+
+    <script src="config.js"></script>
+    <script src="appSolicitudes.js"></script>
+    <script src="appReportes.js"></script>
+</body>
+</html>
