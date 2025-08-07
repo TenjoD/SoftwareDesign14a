@@ -1,0 +1,34 @@
+### Crear una nueva solicitud de vacaciones
+POST http://localhost:8000/solicitudes/
+Content-Type: application/json
+
+{
+  "emp_id": 1,
+  "jefe_id": 2,
+  "sol_fecha_inicio": "2025-09-10",
+  "sol_fecha_fin": "2025-09-20",
+  "sol_motivo": "Vacaciones familiares",
+  "sol_fecha_creacion": "2025-08-06T14:30:00"
+}
+
+### Obtener todas las solicitudes
+GET http://localhost:8000/solicitudes/
+
+### Obtener una solicitud por ID
+GET http://localhost:8000/solicitudes/3
+
+### Actualizar una solicitud existente
+PUT http://localhost:8000/solicitudes/3
+Content-Type: application/json
+
+{
+  "emp_id": 1,
+  "jefe_id": 2,
+  "sol_fecha_inicio": "2025-09-15",
+  "sol_fecha_fin": "2025-09-25",
+  "sol_motivo": "Cambio de fechas por viaje familiar",
+  "sol_fecha_creacion": "2025-08-06T14:30:00"
+}
+
+### Eliminar una solicitud (si está habilitado)
+DELETE http://localhost:8000/solicitudes/10
