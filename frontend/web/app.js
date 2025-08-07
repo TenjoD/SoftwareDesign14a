@@ -1,55 +1,78 @@
 async function listarSolicitudes() {
-    const res = await fetch("http://localhost:8000/solicitudes/");
-    const data = await res.json();
-    const lista = document.getElementById("listaSolicitudes");
-    lista.innerHTML = "";
-    data.forEach(s => {
-        const item = document.createElement("li");
-        item.textContent = `ID: ${s.sol_id} | Empleado: ${s.emp_id} | Jefe: ${s.jefe_id} | Motivo: ${s.sol_motivo} | ${s.sol_fecha_inicio} a ${s.sol_fecha_fin}`;
-        lista.appendChild(item);
-    });
+    try {
+        const res = await fetch(API_BASE + ENDPOINTS.read_all_solicitudes);
+        const data = await res.json();
+        const lista = document.getElementById("listaSolicitudes");
+        lista.innerHTML = "";
+
+        if (data.length === 0) {
+            lista.innerHTML = "<li>No hay solicitudes registradas.</li>";
+            return;
+        }
+
+        data.forEach(s => {
+            const item = document.createElement("li");
+            item.textContent = `ID: ${s.sol_id} | Empleado: ${s.emp_id} | Jefe: ${s.jefe_id} | Motivo: ${s.sol_motivo} | ${s.sol_fecha_inicio} a ${s.sol_fecha_fin}`;
+            lista.appendChild(item);
+        });
+    } catch (error) {
+        console.error("Error al listar solicitudes:", error);
+    }
 }
 
-
-document.getElementById("formSolicitud").addEventListener("submit", async function(e) {
+document.getElementById("formSolicitud").addEventListener("submit", async function (e) {
     e.preventDefault();
+
     const body = {
-        sol_id: parseInt(document.getElementById("sol_id").value),
         emp_id: parseInt(document.getElementById("emp_id").value),
         jefe_id: parseInt(document.getElementById("jefe_id").value),
         sol_fecha_inicio: document.getElementById("sol_fecha_inicio").value,
         sol_fecha_fin: document.getElementById("sol_fecha_fin").value,
         sol_motivo: document.getElementById("sol_motivo").value
     };
-    await fetch(API_BASE + ENDPOINTS.create, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(body)
-    });
-    alert("Solicitud creada correctamente.");
-    listarSolicitudes();
-    mostrarSeccion('listarSolicitudes');
+
+    try {
+        const res = await fetch(API_BASE + ENDPOINTS.create_solicitud, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+        });
+
+        const result = await res.json();
+        alert(result.mensaje || "Solicitud creada correctamente.");
+        listarSolicitudes();
+        mostrarSeccion('listarSolicitudes');
+    } catch (error) {
+        console.error("Error al guardar solicitud:", error);
+        alert("Error al guardar la solicitud.");
+    }
 });
 
 async function buscarSolicitud() {
-    const id = document.getElementById("sol_id_buscar").value;
-    const res = await fetch(API_BASE + ENDPOINTS.read_one.replace("{sol_id}", id));
-    if (res.ok) {
-        const data = await res.json();
-        document.getElementById("emp_idAccion").value = data.emp_id;
-        document.getElementById("jefe_idAccion").value = data.jefe_id;
-        document.getElementById("sol_fecha_inicioAccion").value = data.sol_fecha_inicio;
-        document.getElementById("sol_fecha_finAccion").value = data.sol_fecha_fin;
-        document.getElementById("sol_motivoAccion").value = data.sol_motivo;
-        mostrarSeccion('accionesSolicitud');
-        alert("Solicitud cargada para edición.");
-    } else {
-        alert("Solicitud no encontrada.");
+    const sol_id = document.getElementById("sol_id_buscar").value;
+
+    try {
+        const res = await fetch(API_BASE + ENDPOINTS.read_one_solicitud.replace("{id}", sol_id));
+        if (res.ok) {
+            const data = await res.json();
+            document.getElementById("emp_idAccion").value = data.emp_id;
+            document.getElementById("jefe_idAccion").value = data.jefe_id;
+            document.getElementById("sol_fecha_inicioAccion").value = data.sol_fecha_inicio;
+            document.getElementById("sol_fecha_finAccion").value = data.sol_fecha_fin;
+            document.getElementById("sol_motivoAccion").value = data.sol_motivo;
+            mostrarSeccion('accionesSolicitud');
+        } else {
+            alert("Solicitud no encontrada.");
+        }
+    } catch (error) {
+        console.error("Error al buscar solicitud:", error);
+        alert("Error al buscar la solicitud.");
     }
 }
 
 async function actualizarSolicitud() {
-    const id = document.getElementById("sol_id_buscar").value;
+    const sol_id = document.getElementById("sol_id_buscar").value;
+
     const body = {
         emp_id: parseInt(document.getElementById("emp_idAccion").value),
         jefe_id: parseInt(document.getElementById("jefe_idAccion").value),
@@ -57,31 +80,51 @@ async function actualizarSolicitud() {
         sol_fecha_fin: document.getElementById("sol_fecha_finAccion").value,
         sol_motivo: document.getElementById("sol_motivoAccion").value
     };
-    const res = await fetch(API_BASE + ENDPOINTS.update.replace("{sol_id}", id), {
-        method: "PUT",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(body)
-    });
-    const result = await res.json();
-    alert(result.mensaje || "Solicitud actualizada.");
-    listarSolicitudes();
-    mostrarSeccion('listarSolicitudes');
+
+    try {
+        const res = await fetch(API_BASE + ENDPOINTS.update_solicitud.replace("{id}", sol_id), {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+        });
+
+        const result = await res.json();
+        alert(result.mensaje || "Solicitud actualizada.");
+        listarSolicitudes();
+        mostrarSeccion('listarSolicitudes');
+    } catch (error) {
+        console.error("Error al actualizar solicitud:", error);
+        alert("Error al actualizar la solicitud.");
+    }
 }
 
 async function eliminarSolicitud() {
-    const id = document.getElementById("sol_id_buscar").value;
-    const res = await fetch(API_BASE + ENDPOINTS.delete.replace("{sol_id}", id), { method: "DELETE" });
-    const result = await res.json();
-    alert(result.mensaje || "Solicitud eliminada.");
-    listarSolicitudes();
-    mostrarSeccion('listarSolicitudes');
+    const sol_id = document.getElementById("sol_id_buscar").value;
+
+    try {
+        const res = await fetch(API_BASE + ENDPOINTS.delete_solicitud.replace("{sol_id}", sol_id), {
+            method: "DELETE"
+        });
+
+        const result = await res.json();
+        alert(result.mensaje || "Solicitud eliminada.");
+        listarSolicitudes();
+        mostrarSeccion('listarSolicitudes');
+    } catch (error) {
+        console.error("Error al eliminar solicitud:", error);
+        alert("Error al eliminar la solicitud.");
+    }
 }
 
 function mostrarSeccion(id) {
     document.querySelectorAll(".seccion").forEach(s => s.style.display = "none");
     document.getElementById(id).style.display = "block";
+
+    if (id === "listarSolicitudes") {
+        listarSolicitudes();
+    }
 }
 
 
-listarProductos();
+listarSolicitudes();
 mostrarSeccion('crear');

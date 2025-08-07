@@ -1,79 +1,56 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>Gestión de Solicitudes</title>
-    <link rel="stylesheet" href="estilos.css" />
+    <link rel="stylesheet" href="estilos.css">
+    
 </head>
 <body>
-    <div class="navbar">
-        <a href="#" onclick="mostrarSeccion('crearSolicitud')">Crear Solicitud</a>
-        <a href="#" onclick="mostrarSeccion('listarSolicitudes')">Lista de Solicitudes</a>
-        <a href="#" onclick="mostrarSeccion('accionesSolicitud')">Acciones</a>
-    </div>
+    <h1>Gestión de Solicitudes de Vacaciones</h1>
 
-    <!-- Crear Solicitud -->
-    <div id="crearSolicitud" class="seccion" style="display:none;">
-        <h2>Crear Solicitud de Vacaciones</h2>
+    <button onclick="mostrarSeccion('crear')">Crear Solicitud</button>
+    <button onclick="mostrarSeccion('listarSolicitudes')">Listar Solicitudes</button>
+    <button onclick="mostrarSeccion('buscarSolicitud')">Buscar/Editar/Eliminar</button>
+
+
+    <div class="seccion" id="crear">
+        <h2>Crear Solicitud</h2>
         <form id="formSolicitud">
-            <label for="sol_id">ID de la solicitud:</label>
-            <input type="number" id="sol_id" required />
-
-            <label for="emp_id">ID del Empleado:</label>
-            <input type="number" id="emp_id" required />
-
-            <label for="jefe_id">ID del Jefe Inmediato:</label>
-            <input type="number" id="jefe_id" required />
-
-            <label for="sol_fecha_inicio">Fecha de inicio:</label>
-            <input type="date" id="sol_fecha_inicio" required />
-
-            <label for="sol_fecha_fin">Fecha de fin:</label>
-            <input type="date" id="sol_fecha_fin" required />
-
-            <label for="sol_motivo">Motivo de la solicitud:</label>
-            <input type="text" id="sol_motivo" required />
-
-            <button type="submit">Guardar Solicitud</button>
+            <label>ID Solicitud: <input type="number" id="sol_id" required></label>
+            <label>ID Empleado: <input type="number" id="emp_id" required></label>
+            <label>ID Jefe: <input type="number" id="jefe_id" required></label>
+            <label>Fecha Inicio: <input type="date" id="sol_fecha_inicio" required></label>
+            <label>Fecha Fin: <input type="date" id="sol_fecha_fin" required></label>
+            <label>Motivo: <input type="text" id="sol_motivo" required></label>
+            <button type="submit">Guardar</button>
         </form>
     </div>
 
-    <!-- Lista de Solicitudes -->
-    <div id="listarSolicitudes" class="seccion" style="display:none;">
-        <h2>Lista de Solicitudes</h2>
+    
+    <div class="seccion" id="listarSolicitudes">
+        <h2>Solicitudes Registradas</h2>
         <ul id="listaSolicitudes"></ul>
     </div>
 
-    <!-- Acciones: Buscar / Actualizar / Eliminar -->
-    <div id="accionesSolicitud" class="seccion" style="display:none;">
-        <h2>Buscar / Actualizar / Eliminar Solicitud</h2>
-
-        <label for="sol_id_buscar">ID de la Solicitud:</label>
-        <input type="number" id="sol_id_buscar" placeholder="ID de la Solicitud" />
+    <div class="seccion" id="buscarSolicitud">
+        <h2>Buscar Solicitud</h2>
+        <label>ID Solicitud: <input type="number" id="sol_id_buscar"></label>
         <button onclick="buscarSolicitud()">Buscar</button>
-
-        <div id="formAcciones" style="margin-top: 20px;">
-            <label for="emp_idAccion">ID del Empleado:</label>
-            <input type="number" id="emp_idAccion" />
-
-            <label for="jefe_idAccion">ID del Jefe Inmediato:</label>
-            <input type="number" id="jefe_idAccion" />
-
-            <label for="sol_fecha_inicioAccion">Fecha de inicio:</label>
-            <input type="date" id="sol_fecha_inicioAccion" />
-
-            <label for="sol_fecha_finAccion">Fecha de fin:</label>
-            <input type="date" id="sol_fecha_finAccion" />
-
-            <label for="sol_motivoAccion">Motivo:</label>
-            <input type="text" id="sol_motivoAccion" />
-
-            <button onclick="actualizarSolicitud()">Actualizar</button>
-            <button onclick="eliminarSolicitud()">Eliminar</button>
-        </div>
     </div>
 
-    <script src="config.js"></script>
+    <div class="seccion" id="accionesSolicitud">
+        <h2>Editar / Eliminar Solicitud</h2>
+        <label>ID Empleado: <input type="number" id="emp_idAccion"></label>
+        <label>ID Jefe: <input type="number" id="jefe_idAccion"></label>
+        <label>Fecha Inicio: <input type="date" id="sol_fecha_inicioAccion"></label>
+        <label>Fecha Fin: <input type="date" id="sol_fecha_finAccion"></label>
+        <label>Motivo: <input type="text" id="sol_motivoAccion"></label>
+        <button onclick="actualizarSolicitud()">Actualizar</button>
+        <button onclick="eliminarSolicitud()">Eliminar</button>
+    </div>
+
     <script src="app.js"></script>
+    <script src="config.js"></script>
 </body>
 </html>

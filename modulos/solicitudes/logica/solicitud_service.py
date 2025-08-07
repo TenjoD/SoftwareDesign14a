@@ -10,6 +10,7 @@ router = APIRouter()
 @router.post("/")
 async def crear_solicitud(req: Request):
     data = await req.json()
+    print("Datos recibidos:", data)  
     solicitud = SolicitudDTO(
         emp_id=data["emp_id"],
         jefe_id=data["jefe_id"],
