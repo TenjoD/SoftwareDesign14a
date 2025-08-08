@@ -9,3 +9,10 @@ const ENDPOINTS = {
     delete_solicitud: "/solicitudes/{id}"
 
 };
+
+const ENDPOINTS_JEFE = {
+    listar_pendientes: "/aceptaciones?jefe_id={jefe_id}",
+    listar_por_jefe: "/aceptaciones/all?jefe_id={jefe_id}",
+    actualizar_estado: "/aceptaciones/actualizar?val_jefe_id={val_jefe_id}",
+    cambio_fecha: "/aceptaciones/cambio-fecha?val_jefe_id={val_jefe_id}"
+};
