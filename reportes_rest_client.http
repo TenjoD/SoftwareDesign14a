@@ -1,0 +1,36 @@
+### Crear un nuevo reporte
+POST http://localhost:8000/reportes/
+Content-Type: application/json
+
+{
+  "emp_id": 1,
+  "rep_estado_solicitud_id": 2,
+  "rep_estado_jefe_id": 3,
+  "rep_estado_rrhh_id": 4,
+  "rep_fecha_inicio": "2025-09-01",
+  "rep_fecha_fin": "2025-09-01",
+  "rep_fecha_creacion": "2025-08-06T14:30:00"
+}
+
+### Actualizar un reporte existente
+PUT http://localhost:8000/reportes/3
+Content-Type: application/json
+
+{
+  "emp_id": 1,
+  "rep_estado_solicitud_id": 2,
+  "rep_estado_jefe_id": 3,
+  "rep_estado_rrhh_id": 4,
+  "rep_fecha_inicio": "2026-09-01",
+  "rep_fecha_fin": "2025-09-01",
+  "rep_fecha_creacion": "2025-08-06T14:30:00"
+}
+
+### Obtener todos los reportes
+GET http://localhost:8000/reportes/
+
+### Obtener un reporte por ID
+GET http://localhost:8000/reportes/3
+
+### Eliminar un reporte (si está habilitado)
+DELETE http://localhost:8000/reportes/3

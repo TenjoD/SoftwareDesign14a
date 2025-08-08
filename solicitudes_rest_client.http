@@ -7,8 +7,12 @@ Content-Type: application/json
   "jefe_id": 2,
   "sol_fecha_inicio": "2025-09-10",
   "sol_fecha_fin": "2025-09-20",
+<<<<<<< HEAD
+  "sol_motivo": "Vacaciones familiares"
+=======
   "sol_motivo": "Vacaciones familiares",
   "sol_fecha_creacion": "2025-08-06T14:30:00"
+>>>>>>> c75b52b121baee9151621703c6952b7a17960336
 }
 
 ### Obtener todas las solicitudes
@@ -18,7 +22,11 @@ GET http://localhost:8000/solicitudes/
 GET http://localhost:8000/solicitudes/3
 
 ### Actualizar una solicitud existente
+<<<<<<< HEAD
+PUT http://localhost:8000/solicitudes/1
+=======
 PUT http://localhost:8000/solicitudes/3
+>>>>>>> c75b52b121baee9151621703c6952b7a17960336
 Content-Type: application/json
 
 {
@@ -31,4 +39,8 @@ Content-Type: application/json
 }
 
 ### Eliminar una solicitud (si está habilitado)
+<<<<<<< HEAD
+DELETE http://localhost:8000/solicitudes/1
+=======
 DELETE http://localhost:8000/solicitudes/10
+>>>>>>> c75b52b121baee9151621703c6952b7a17960336
