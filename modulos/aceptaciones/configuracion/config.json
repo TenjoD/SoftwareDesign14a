@@ -25,7 +25,6 @@
   "delete_aceptacion": "/aceptaciones/{id}",
   "listar_por_jefe": "/aceptaciones?jefe_id={jefe_id}",
   "listar_pendientes": "/aceptaciones/all?jefe_id={jefe_id}",
-  "buscar_por_documento":"/aceptaciones/buscar-por-documento?jefe_id={jefe_id}&documento_empleado={documento_empleado}",
   "actualizar_estado": "/aceptaciones/actualizar?val_jefe_id={val_jefe_id}",
   "cambio_fecha": "/aceptaciones/cambio-fecha?val_jefe_id={val_jefe_id}"
 

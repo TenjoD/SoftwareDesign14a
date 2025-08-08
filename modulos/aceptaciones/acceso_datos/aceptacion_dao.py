@@ -5,6 +5,13 @@ conn = ConexionDB().obtener_conexion()
 
 class AceptacionDAOMySQL:
 
+    def obtener_estado_actual(self, val_jefe_id):
+        with conn.cursor() as cursor:
+            sql = "SELECT estado FROM validaciones_jefe WHERE val_jefe_id = %s"
+            cursor.execute(sql, (val_jefe_id,))
+            row = cursor.fetchone()
+            return row[0] if row else None
+
     def listar_validaciones_por_jefe(self, jefe_id):
         with conn.cursor() as cursor:
             sql = """

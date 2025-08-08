@@ -13,12 +13,9 @@ ENDPOINTS = config["endpoints"]
 ventana = tk.Tk()
 ventana.title("Gestión de Aceptación de Solicitudes")
 
-# Campos comunes
 tk.Label(ventana, text="ID Jefe:").grid(row=0, column=0, sticky="w")
 entry_jefe_id = tk.Entry(ventana)
 entry_jefe_id.grid(row=0, column=1)
-
-# ---- Funciones ----
 
 def ver_todas_solicitudes_jefe():
     jefe_id = entry_jefe_id.get().strip()
@@ -102,7 +99,6 @@ def solicitar_cambio_fecha():
     except Exception as e:
         messagebox.showerror("Error", str(e))
 
-# ---- Botones ----
 tk.Button(ventana, text="Ver todas las solicitudes", command=ver_solicitudes_pendientes_jefe).grid(row=1, column=0, pady=5)
 tk.Button(ventana, text="Ver las solicitudes pendientes", command=ver_todas_solicitudes_jefe).grid(row=1, column=1, pady=5)
 tk.Button(ventana, text="Actualizar estado", command=actualizar_estado).grid(row=2, column=0, pady=5)

@@ -7,6 +7,7 @@ with open("modulos/aceptaciones/configuracion/config.json") as f:
 
 API = config["api_base"]
 ENDPOINTS = config["endpoints"]
+
 def menu():
     print("\n===== Menú de Aceptación de Solicitudes =====")
     print("1. Ver solicitudes PENDIENTES del jefe")
@@ -24,7 +25,7 @@ def ver_todas_solicitudes_jefe():
         if not solicitudes:
             print("No hay solicitudes.")
         for s in solicitudes:
-            print(f"[{s['estado'].upper()}] ID validación: {s['val_jefe_id']} | Solicitud: {s['sol_id']} | Observaciones: {s['observaciones']} |"
+            print(f"[{s['estado'].upper()}] ID validación: {s['val_jefe_id']} | Solicitud: {s['sol_id']} | | Observaciones: {s['observaciones']} |"
                   f"Empleado: {s['emp_nombre']} ({s['emp_documento']}) | Fechas: {s['sol_fecha_inicio']} a {s['sol_fecha_fin']}")
     except Exception:
         print(r.status_code, r.text)
