@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<<<<<<< HEAD
     <meta charset="UTF-8" />
     <title>Gestión de Solicitudes</title>
     <link rel="stylesheet" href="estilos.css" />
@@ -46,10 +47,59 @@
         <input type="date" id="sol_fecha_finAccion" placeholder="Fecha de fin" />
         <input type="text" id="sol_motivoAccion" placeholder="Motivo" />
     
+=======
+    <meta charset="UTF-8">
+    <title>Gestión de Solicitudes</title>
+    <link rel="stylesheet" href="estilos.css">
+    
+</head>
+<body>
+    <h1>Gestión de Solicitudes de Vacaciones</h1>
+
+    <button onclick="mostrarSeccion('crear')">Crear Solicitud</button>
+    <button onclick="mostrarSeccion('listarSolicitudes')">Listar Solicitudes</button>
+    <button onclick="mostrarSeccion('buscarSolicitud')">Buscar/Editar/Eliminar</button>
+    <a href="./gestionJefe.html">Gestión Jefe</a>
+
+
+    <div class="seccion" id="crear">
+        <h2>Crear Solicitud</h2>
+        <form id="formSolicitud">
+            <label>ID Solicitud: <input type="number" id="sol_id" required></label>
+            <label>ID Empleado: <input type="number" id="emp_id" required></label>
+            <label>ID Jefe: <input type="number" id="jefe_id" required></label>
+            <label>Fecha Inicio: <input type="date" id="sol_fecha_inicio" required></label>
+            <label>Fecha Fin: <input type="date" id="sol_fecha_fin" required></label>
+            <label>Motivo: <input type="text" id="sol_motivo" required></label>
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+
+    
+    <div class="seccion" id="listarSolicitudes">
+        <h2>Solicitudes Registradas</h2>
+        <ul id="listaSolicitudes"></ul>
+    </div>
+
+    <div class="seccion" id="buscarSolicitud">
+        <h2>Buscar Solicitud</h2>
+        <label>ID Solicitud: <input type="number" id="sol_id_buscar"></label>
+        <button onclick="buscarSolicitud()">Buscar</button>
+    </div>
+
+    <div class="seccion" id="accionesSolicitud">
+        <h2>Editar / Eliminar Solicitud</h2>
+        <label>ID Empleado: <input type="number" id="emp_idAccion"></label>
+        <label>ID Jefe: <input type="number" id="jefe_idAccion"></label>
+        <label>Fecha Inicio: <input type="date" id="sol_fecha_inicioAccion"></label>
+        <label>Fecha Fin: <input type="date" id="sol_fecha_finAccion"></label>
+        <label>Motivo: <input type="text" id="sol_motivoAccion"></label>
+>>>>>>> c75b52b121baee9151621703c6952b7a17960336
         <button onclick="actualizarSolicitud()">Actualizar</button>
         <button onclick="eliminarSolicitud()">Eliminar</button>
     </div>
 
+<<<<<<< HEAD
 
     // Reportes Section
     <div id="crearReporte" class="seccion" style="display:none;">
@@ -114,5 +164,9 @@
     <script src="config.js"></script>
     <script src="appSolicitudes.js"></script>
     <script src="appReportes.js"></script>
+=======
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+>>>>>>> c75b52b121baee9151621703c6952b7a17960336
 </body>
 </html>

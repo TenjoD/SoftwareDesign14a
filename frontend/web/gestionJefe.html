@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Aceptaciones</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <h1>Gestión de Aceptaciones de Solicitudes</h1>
+
+    <button onclick="mostrarSeccion('pendientes')">Ver Solicitudes Pendientes</button>
+    <button onclick="mostrarSeccion('todas')">Ver Todas las Solicitudes</button>
+    <button onclick="mostrarSeccion('actualizar')">Actualizar Estado</button>
+    <button onclick="mostrarSeccion('cambioFecha')">Solicitar Cambio de Fecha</button>
+
+    <div class="seccion" id="pendientes">
+        <h2>Solicitudes Pendientes</h2>
+        <label>ID Jefe: <input type="number" id="jefe_id_pendientes"></label>
+        <button onclick="verPendientes()">Buscar</button>
+        <ul id="listaPendientes"></ul>
+    </div>
+
+    <div class="seccion" id="todas">
+        <h2>Todas las Solicitudes</h2>
+        <label>ID Jefe: <input type="number" id="jefe_id_todas"></label>
+        <button onclick="verTodas()">Buscar</button>
+        <ul id="listaTodas"></ul>
+    </div>
+
+    <div class="seccion" id="actualizar">
+        <h2>Actualizar Estado y Observaciones</h2>
+        <label>ID Validación: <input type="number" id="val_jefe_id_actualizar"></label>
+        <label>Estado:
+            <select id="estado_actualizar">
+                <option value="ACEPTADO">ACEPTADO</option>
+                <option value="RECHAZADO">RECHAZADO</option>
+                <option value="PENDIENTE">PENDIENTE</option>
+            </select>
+        </label>
+        <label>Observaciones: <input type="text" id="observaciones_actualizar"></label>
+        <button onclick="actualizarEstado()">Actualizar</button>
+    </div>
+
+    <div class="seccion" id="cambioFecha">
+        <h2>Solicitar Cambio de Fecha</h2>
+        <label>ID Validación: <input type="number" id="val_jefe_id_cambio"></label>
+        <button onclick="solicitarCambio()">Solicitar</button>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+        function mostrarSeccion(id) {
+            document.querySelectorAll('.seccion').forEach(s => s.style.display = 'none');
+            document.getElementById(id).style.display = 'block';
+        }
+
+        function verPendientes() {
+            const jefeId = document.getElementById('jefe_id_pendientes').value;
+            fetch(`${API_BASE}${ENDPOINTS_JEFE.listar_pendientes.replace('{jefe_id}', jefeId)}`)
+                .then(r => r.json())
+                .then(data => {
+                    const lista = document.getElementById('listaPendientes');
+                    lista.innerHTML = '';
+                    if (data.length === 0) {
+                        lista.innerHTML = '<li>Sin solicitudes pendientes.</li>';
+                        return;
+                    }
+                    data.forEach(s => {
+                        const li = document.createElement('li');
+                        li.textContent = `[PENDIENTE] ID validación: ${s.val_jefe_id} | Solicitud: ${s.sol_id} | Observaciones: ${s.observaciones || 'N/A'} | Empleado: ${s.emp_nombre} (${s.emp_documento}) | Fechas: ${s.sol_fecha_inicio} a ${s.sol_fecha_fin}`;
+                        lista.appendChild(li);
+                    });
+                });
+        }
+
+        function verTodas() {
+            const jefeId = document.getElementById('jefe_id_todas').value;
+            fetch(`${API_BASE}${ENDPOINTS_JEFE.listar_por_jefe.replace('{jefe_id}', jefeId)}`)
+                .then(r => r.json())
+                .then(data => {
+                    const lista = document.getElementById('listaTodas');
+                    lista.innerHTML = '';
+                    if (data.length === 0) {
+                        lista.innerHTML = '<li>No hay solicitudes.</li>';
+                        return;
+                    }
+                    data.forEach(s => {
+                        const li = document.createElement('li');
+                        li.textContent = `[${s.estado.toUpperCase()}] ID validación: ${s.val_jefe_id} | Solicitud: ${s.sol_id} | Observaciones: ${s.observaciones || 'N/A'} | Empleado: ${s.emp_nombre} (${s.emp_documento}) | Fechas: ${s.sol_fecha_inicio} a ${s.sol_fecha_fin}`;
+                        lista.appendChild(li);
+                    });
+                });
+        }
+
+        function actualizarEstado() {
+            const valId = document.getElementById('val_jefe_id_actualizar').value;
+            const estado = document.getElementById('estado_actualizar').value;
+            const observaciones = document.getElementById('observaciones_actualizar').value;
+
+            fetch(`${API_BASE}${ENDPOINTS_JEFE.actualizar_estado.replace('{val_jefe_id}', valId)}`, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({estado, observaciones})
+            })
+            .then(r => r.json())
+            .then(resp => alert('Estado actualizado correctamente'))
+            .catch(err => alert('Error al actualizar: ' + err));
+        }
+
+        function solicitarCambio() {
+            const valId = document.getElementById('val_jefe_id_cambio').value;
+
+            fetch(`${API_BASE}${ENDPOINTS_JEFE.cambio_fecha.replace('{val_jefe_id}', valId)}`, {
+                method: 'PUT'
+            })
+            .then(r => r.json())
+            .then(resp => alert('Cambio de fecha solicitado'))
+            .catch(err => alert('Error al solicitar cambio: ' + err));
+        }
+
+        mostrarSeccion('pendientes');
+    </script>
+</body>
+</html>

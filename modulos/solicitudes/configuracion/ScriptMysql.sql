@@ -43,3 +43,14 @@ CREATE TABLE IF NOT EXISTS validaciones_jefe (
     observaciones TEXT,
     fecha_validacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+<<<<<<< HEAD
+=======
+
+CREATE TABLE IF NOT EXISTS validaciones_rrhh (
+    val_rrhh_id SERIAL PRIMARY KEY,
+    sol_id INT REFERENCES solicitudes(sol_id),
+    estado VARCHAR(20) DEFAULT 'pendiente',  -- aprobado, rechazado, pendiente
+    observaciones TEXT,
+    fecha_validacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+>>>>>>> c75b52b121baee9151621703c6952b7a17960336

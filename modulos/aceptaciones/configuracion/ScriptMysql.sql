@@ -1,11 +1,10 @@
--- Crear base de datos (ejecutar en consola psql como superusuario)
-CREATE DATABASE vacations_db;
+-- Crear base de datos (funciona tanto para MySQL como PostgreSQL)
+CREATE DATABASE IF NOT EXISTS vacations_db;
 
--- Conectarse a la base de datos (dentro de psql)
--- \c productos_db
+-- Usar la base de datos (MySQL)
+USE vacations_db;
 
--- Crear tabla formularios
-
+-- Crear tabla productos
 CREATE TABLE IF NOT EXISTS empleados (
     emp_id SERIAL PRIMARY KEY,
    emp_documento INT NOT NULL,
@@ -29,7 +28,7 @@ CREATE TABLE IF NOT EXISTS jefes (
 CREATE TABLE IF NOT EXISTS solicitudes (
     sol_id SERIAL PRIMARY KEY,
     emp_id INT REFERENCES empleados(emp_id),
-    jefe_id INT REFERENCES jefes(jefe_id),
+    jefe_id INT REFERENCES empleados(jefe_id),
     sol_fecha_inicio DATE NOT NULL,
     sol_fecha_fin DATE NOT NULL,
     sol_motivo VARCHAR(255) NOT NULL,
@@ -51,18 +50,4 @@ CREATE TABLE IF NOT EXISTS validaciones_rrhh (
     estado VARCHAR(20) DEFAULT 'pendiente',  -- aprobado, rechazado, pendiente
     observaciones TEXT,
     fecha_validacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-<<<<<<< HEAD
-=======
-);
-
-CREATE TABLE IF NOT EXISTS reportes (
-    rep_id SERIAL PRIMARY KEY,
-    emp_id INT REFERENCES empleados(emp_id),
-    rep_estado_solicitud_id INT REFERENCES solicitudes(sol_id),
-    rep_estado_jefe_id INT REFERENCES validaciones_jefe(val_jefe_id),
-    rep_estado_rrhh_id INT REFERENCES validaciones_rrhh(val_rrhh_id),
-    rep_fecha_inicio DATE NOT NULL,
-    rep_fecha_fin DATE NOT NULL,
-    rep_fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
->>>>>>> c75b52b121baee9151621703c6952b7a17960336
 );

@@ -3,24 +3,44 @@
   "host": "localhost",
   "port": 3306,
   "user": "root",
+<<<<<<< HEAD
   "password": "",
   "database": "productos_db",
+=======
+  "password": "12345",
+  "database": "vacations_db",
+>>>>>>> c75b52b121baee9151621703c6952b7a17960336
 
   "_db_engine": "postgres",
   "_host": "localhost",
   "_port": 5432,
   "_user": "postgres",
+<<<<<<< HEAD
   "_password": "12345",
   "_database": "productos_db",
+=======
+  "_password": "0923",
+  "_database": "vacations_db",
+>>>>>>> c75b52b121baee9151621703c6952b7a17960336
 
   "productos_service_url": "http://localhost:8000/solicitudes",
 
 
   "api_base": "http://localhost:8000",
   "endpoints": {
+<<<<<<< HEAD
   "create_producto": "/solicitudes",
   "read_all_producto": "/solicitudes",
   "read_one_producto": "/solicitudes/{id}",
   "update_producto": "/solicitudes/{id}",
   "delete_producto": "/solicitudes/{id}"}
+=======
+  "create_solicitud": "/solicitudes",
+  "read_all_solicitud": "/solicitudes",
+  "read_one_solicitud": "/solicitudes/{id}",
+  "update_solicitud": "/solicitudes/{id}",
+  "delete_solicitud": "/solicitudes/{id}"}
+
+
+>>>>>>> c75b52b121baee9151621703c6952b7a17960336
 }
